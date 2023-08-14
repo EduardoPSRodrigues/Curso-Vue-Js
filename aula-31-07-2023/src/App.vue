@@ -8,7 +8,7 @@
     <p> {{ usuario.data.split('').reverse().join('') }}</p>
     <input type="text" v-model="usuario.data">
     <br><br><br>
-    
+
     <!------------------------------------------------------------------------->
 
     <h1>Calculadora IMC</h1>
@@ -17,6 +17,14 @@
     <button @click="calcularIMC()">Calular</button>
     <!-- Resultado -->
     <p> Resultado: {{ resultado }} </p>
+
+    <!------------------------------------------------------------------------->
+
+    <h1>Determinar se o número é PAR OU IMPAR</h1>
+    <input type="number" placeholder="Insira o numero" v-model="numeroParOuImpar">
+    <button @click="DeterminarParOuImpar()">Calular</button>
+    <!-- Resultado -->
+    <p> Resultado: {{ resultadoParOuImpar }} </p>
 
 
 
@@ -35,18 +43,28 @@ export default {
       },
       peso: '',
       altura: '',
-      resultado: ''
+      resultado: '',
+      numeroParOuImpar: '',
+      resultadoParOuImpar: ''
     }
   },
   methods: {
-    calcularIMC(){
+    calcularIMC() {
       if (!this.peso || !this.altura) {
         alert('Preencha todos os dados')
         return
       }
       this.resultado = (this.peso / (this.altura ** 2)).toFixed(2)
+    },
+
+  DeterminarParOuImpar() {
+    if (this.numeroParOuImpar % 2 ===0) {
+      this.resultadoParOuImpar = 'Número PAR'
+    } else {
+      this.resultadoParOuImpar = 'Número IMPAR'
     }
-  },
+  }
+}
 }
 
 </script>
