@@ -3,14 +3,13 @@
     <Card>
       <template v-slot:header>
         <div>
-          <h1>Título do Card</h1>
 
         </div>
       </template>
-      <p>O Speedtest é melhor com o app Baixe o app do Speedtest para medições adicionais, teste de vídeo, mapas de
-        cobertura móvel e mais. Get it on Google Play.</p>
+     
 
       <template #footer>
+        <!-- Esta sobrepondo o Card -->
         <h6>Criado por Eduardo Phelipe</h6>
       </template>
     </Card>
