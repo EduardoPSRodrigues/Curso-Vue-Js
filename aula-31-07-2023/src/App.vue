@@ -91,4 +91,8 @@ export default {
   * onSubmit: usando dentro de formulários
 * return vazio tem a função de fazer o código parar a partir daquele ponto e não executar o restante do código
 * o objetivo de usar a palavra this é porque ele sempre vai se referir as variáveis do data e tambem irei chamar outras funções. 
+* if(!(!!this.numero)) faz um monte de verificação 
+
+
+
 -->
