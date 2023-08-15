@@ -42,6 +42,8 @@
 
     <input type="number" v-model="numero" placeholder="Número">
     <p>Quadrado do número: {{ quadrado }}</p>
+    <span v-if="numero%2==0">Esse número é PAR</span>
+    <span v-if="numero%2==1">Esse número é ÍMPAR</span>
   </div>
 </template>
 
