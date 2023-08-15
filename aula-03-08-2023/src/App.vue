@@ -39,6 +39,9 @@
       Nome completo: {{ nomeCompleto }}
       Ano de nascimento: {{ anoNascimento }}
     </p>
+
+    <input type="number" v-model="numero" placeholder="Número">
+    <p>Quadrado do número: {{ quadrado }}</p>
   </div>
 </template>
 
@@ -54,6 +57,10 @@ export default {
       nome: "Eduardo",
       sobrenome: "Rodrigues",
       idade: 33,
+
+      numero: "",
+      quadrado: 0,
+
       listaCursos: [
         {
           titulo: "HTML e CSS", duracao: 30, vagas: 400000
@@ -67,6 +74,13 @@ export default {
       ]
     }
   },
+  watch:{
+    numero: function (novoValor, valorAntigo) {
+      this.quadrado = this.numero * this.numero
+    },
+
+  },
+
   computed:{
     nomeCompleto(){
       return `${this.nome} ${this.sobrenome}`
@@ -110,7 +124,7 @@ export default {
 * @inscrever="inscrever" o @inscrever significa o mesmo nome do emit em CursoItem e o ="funcaoEscreverNoApp" é o mesmo nome da função
   criado no methods
 * computed faz a concatenação de dados e manipulação como se fosse uma função e retorna uma variavel que nao esta 
-  salva no banco de dados 
-
+  salva no banco de dados, sendo que ele renderiza a informação automaticamente, diferente da função que precisa ser chamado. 
+* watch é um observador que esta atrelado a dois parametros, sempre que um parametro alterar, o outro sofrerá alteraçao tambem
 
 -->
