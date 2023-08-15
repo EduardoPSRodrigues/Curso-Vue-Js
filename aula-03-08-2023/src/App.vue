@@ -30,8 +30,15 @@
     :vagas="curso.vagas"
     @inscrever="funcaoEscreverNoApp"
     >
-    
+  
     </CursoItem>
+
+    <br><hr>
+
+    <p>
+      Nome completo: {{ nomeCompleto }}
+      Ano de nascimento: {{ anoNascimento }}
+    </p>
   </div>
 </template>
 
@@ -44,6 +51,9 @@ export default {
   },
   data(){
     return {
+      nome: "Eduardo",
+      sobrenome: "Rodrigues",
+      idade: 33,
       listaCursos: [
         {
           titulo: "HTML e CSS", duracao: 30, vagas: 400000
@@ -56,6 +66,18 @@ export default {
         },
       ]
     }
+  },
+  computed:{
+    nomeCompleto(){
+      return `${this.nome} ${this.sobrenome}`
+    },
+    anoNascimento(){
+      const dataAtual = new Date();
+      const anoAtual = dataAtual.getFullYear();
+      const anoNascimento = anoAtual - this.idade;
+      return anoNascimento
+    },
+
   },
   methods: {
     funcaoEscreverNoApp(){
@@ -87,7 +109,8 @@ export default {
     Significa que posso passar ate 3 parametros no for, o segundo indice é um index e ele é um id pois nunca se repete
 * @inscrever="inscrever" o @inscrever significa o mesmo nome do emit em CursoItem e o ="funcaoEscreverNoApp" é o mesmo nome da função
   criado no methods
-
+* computed faz a concatenação de dados e manipulação como se fosse uma função e retorna uma variavel que nao esta 
+  salva no banco de dados 
 
 
 -->
