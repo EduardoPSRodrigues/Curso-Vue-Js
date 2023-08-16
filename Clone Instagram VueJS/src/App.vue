@@ -1,18 +1,18 @@
 <!-- HTML -->
 <template>
 
-  <form class="form-login">
+  <form @submit.prevent="handleLogin" class="form-login">
         <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Instagram_logo.svg/840px-Instagram_logo.svg.png"
             alt="Logotipo do instagram">
 
         <div class="input-area">    
         <input type="text" placeholder="Telefone, nome do usuário ou e-mail" v-model="email">
-        <span id="erro-email" class="texto-erro" hidden></span>
+        <span class="texto-erro"> {{ errorInputEmail }}</span>
         </div>
 
         <div class="input-area">
         <input type="password" placeholder="Senha" v-model="password">
-        <span id="erro-senha" class="texto-erro" hidden></span>
+        <span class="texto-erro"> {{ errorInputPassword }}</span>
         </div>
 
         <button type="submit">Entrar</button>
@@ -31,6 +31,19 @@ export default {
     return{
       email: '',
       password: '',
+      
+      errorInputEmail: '',
+      errorInputPassword: '',
+    }
+  },
+  methods: {
+    handleLogin(){
+      if (!this.email) {
+        this.errorInputEmail = 'Digite um e-mail válido.'
+      } else if (!this.password) {
+        this.errorInputPassword = 'Senha incorreta.'
+
+      }
     }
   },
 }
@@ -111,3 +124,15 @@ a {
   border-color: red;
 }
 </style>
+
+
+<!-- Informações do projeto
+
+* Para criar uma função de submissão no formulário, basta colocar @submit="" e declarar a função
+* Quando tem um formulário, não precisa colocar o @submit no botão, pois estará vinculado no formulário, 
+  coloca @click ou @submit quando for um botão independente. 
+* @submit.prevent significa que o submit não vai mais recarregar a tela, seria como o preventDefault no java
+
+
+
+-->
