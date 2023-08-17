@@ -153,7 +153,7 @@ a {
   um elemento com base em uma expressão booleana. No caso, o elemento <li> só será renderizado se o valor de 
   errorInputEmail for avaliado como verdadeiro (ou seja, não for nulo, vazio, falso, etc.).
 * button :disabled="!email && !password"  vai deixar o botão desabilitado até esses campos terem informação.
-
-
-
+* Como esse código é um componente, tem que importar ele no APP.vue, registrar em export default { 
+  components:{LoginInstagram}, e colocar a tag no HTML.
+}
 -->
