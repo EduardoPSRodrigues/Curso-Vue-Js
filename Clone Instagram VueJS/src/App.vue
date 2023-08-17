@@ -13,7 +13,7 @@
         <input type="password" placeholder="Senha" v-model="password">
       </div>
       
-      <button :disabled="!email && !password" type="submit">Entrar</button>
+      <button type="submit">Entrar</button>
       
       <div class="error-box">
         <ul>
