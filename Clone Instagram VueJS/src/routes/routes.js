@@ -10,17 +10,32 @@ const router = createRouter({
         {
             path: '/', 
             name: 'Login',
-            component: LoginInstagram
+            component: LoginInstagram,
         },
         {
             path: '/cadastro', 
             name: 'SignUp',
-            component: SignUp
+            component: SignUp,
         },
         {
             path: '/home', 
             name: 'Home',
-            component: HomeInstagram
+            component: HomeInstagram,
         },
     ]
 })
+
+export default router
+
+/* Informações do projeto
+
+* Instalar o Vue Router - npm install vue-router@4
+* Depois criar uma pasta com o nome routes dentro de src e criar um arquivo routes.js, 
+* Dentro do arquivo routes.js insira o codigo
+  * import { createRouter, createWebHistory } from "vue-router";
+* Importar todas as telas da aplicação. Ex: import HomeInstagram from '../components/Home/HomeInstagram.vue'
+* Criar o roteamento da aplicação
+* Para cada rota vai definir qual é o caminho, componente e o nome dela
+* path é a rota raiz, name é o nome da rota e component é o nome que foi importado
+* No final do código colocar export default router
+*/
