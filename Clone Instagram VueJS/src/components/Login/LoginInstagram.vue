@@ -15,9 +15,7 @@
       <input 
       type="password" 
       placeholder="Senha" 
-      v-model="password"
-      >
-
+      v-model="password" >
     </div>
 
     <button type="submit">Entrar</button>
@@ -29,8 +27,11 @@
       </ul>
     </div>
 
+    <p><router-link to="/cadastro">Cadastre-se</router-link></p>
+
     <a id="esqueceu-senha">Esqueceu a senha?</a>
     <span id="imagem-carregando" hidden></span>
+    
   </form>
 </template>
 
@@ -56,6 +57,9 @@ export default {
       if (!this.email) this.errorInputEmail = 'Digite um e-mail válido.'
       if (!this.password) this.errorInputPassword = 'Senha incorreta.'
 
+      if (!this.errorInputEmail && !this.errorInputPassword) {
+        this.$router.push('/home')
+      }
     }
   },
 }
@@ -71,7 +75,6 @@ export default {
   margin: 4px;
 
 }
-
 .form-login {
   margin: 0 auto;
   width: 40%;
@@ -155,5 +158,9 @@ a {
 * button :disabled="!email && !password"  vai deixar o botão desabilitado até esses campos terem informação.
 * Como esse código é um componente, tem que importar ele no APP.vue, registrar em export default { 
   components:{LoginInstagram}, e colocar a tag no HTML.
-}
+* <p><router-link to="/cadastro">Cadastre-se</router-link></p> significa que dentro da tag p estou colocando um link 
+  para quando clicar na palavra Cadastre-se, o usuário ir para a tela de cadastro, coloca sempre o nome do patch que foi
+  configurado no router
+* Dentro de uma função no methods, para ser direcionado a outra tela usa-se this.$router.push('/home'), dentro das aspas 
+  coloca o path para ser direcionado
 -->
