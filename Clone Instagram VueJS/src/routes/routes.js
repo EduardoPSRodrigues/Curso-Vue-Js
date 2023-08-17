@@ -5,7 +5,7 @@ import LoginInstagram from '../components/Login/LoginInstagram.vue'
 import SignUp from '../components/SignUp/SignUp.vue'
 
 const router = createRouter({
-    history: createWebHistory(import.meta.url),
+    history: createWebHistory(import.meta.env.BASE_URL),
     routes: [
         {
             path: '/', 
@@ -38,4 +38,10 @@ export default router
 * Para cada rota vai definir qual é o caminho, componente e o nome dela
 * path é a rota raiz, name é o nome da rota e component é o nome que foi importado
 * No final do código colocar export default router
+* Ir no mais.js e colocar o código 
+  import router from './routes/routes.js'
+
+  createApp(App)
+  .use(router)
+  .mount('#app')
 */
