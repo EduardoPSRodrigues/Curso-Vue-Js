@@ -7,15 +7,20 @@
 
         <div class="input-area">    
         <input type="text" placeholder="Telefone, nome do usuário ou e-mail" v-model="email">
-        <span class="texto-erro"> {{ errorInputEmail }}</span>
-        </div>
-
-        <div class="input-area">
+      </div>
+      
+      <div class="input-area">
         <input type="password" placeholder="Senha" v-model="password">
-        <span class="texto-erro"> {{ errorInputPassword }}</span>
-        </div>
-
-        <button type="submit">Entrar</button>
+      </div>
+      
+      <button :disabled="!email && !password" type="submit">Entrar</button>
+      
+      <div class="error-box">
+        <ul>
+          <li v-if="errorInputEmail">{{ errorInputEmail }}</li> 
+          <li v-if="errorInputPassword">{{ errorInputPassword }}</li>
+        </ul>
+      </div>
 
         <a id="esqueceu-senha">Esqueceu a senha?</a>
         <span id="imagem-carregando" hidden></span>
@@ -31,19 +36,21 @@ export default {
     return{
       email: '',
       password: '',
-      
+
       errorInputEmail: '',
       errorInputPassword: '',
     }
   },
   methods: {
     handleLogin(){
-      if (!this.email) {
-        this.errorInputEmail = 'Digite um e-mail válido.'
-      } else if (!this.password) {
-        this.errorInputPassword = 'Senha incorreta.'
 
-      }
+
+      this. errorInputEmail = ''
+      this.errorInputPassword = ''
+
+      if (!this.email) this.errorInputEmail = 'Digite um e-mail válido.'
+      if (!this.password) this.errorInputPassword = 'Senha incorreta.'
+
     }
   },
 }
@@ -52,6 +59,15 @@ export default {
 <!-- Estilização -->
 
 <style scoped>
+
+.error-box{
+  background-color: tomato;
+  width: 80%;
+  color: #fff;
+  margin: 4px;
+
+}
+
 .form-login {
   margin: 0 auto;
   width: 40%;
@@ -93,11 +109,6 @@ input {
   width: 100%;
 }
 
-.texto-erro {
-  color: red;
-  margin: 4px;
-}
-
 button {
   background-color: #4bb4f8;
   color: white;
@@ -132,6 +143,12 @@ a {
 * Quando tem um formulário, não precisa colocar o @submit no botão, pois estará vinculado no formulário, 
   coloca @click ou @submit quando for um botão independente. 
 * @submit.prevent significa que o submit não vai mais recarregar a tela, seria como o preventDefault no java
+* Quando o if tem apenas 1 linha, pode omitir as chaves e deixar tudo na mesma linha
+* Caso o email ou senha seja preenchido, o campo this. errorInputEmail = '' faz limpar a variavel e sumir com o erro na tela
+* v-if="errorInputEmail": Essa é uma diretiva do Vue.js chamada v-if. Ela é usada para renderizar condicionalmente 
+  um elemento com base em uma expressão booleana. No caso, o elemento <li> só será renderizado se o valor de 
+  errorInputEmail for avaliado como verdadeiro (ou seja, não for nulo, vazio, falso, etc.).
+* button :disabled="!email && !password"  vai deixar o botão desabilitado até esses campos terem informação.
 
 
 
