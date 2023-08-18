@@ -63,9 +63,17 @@
       </div>
 
       <div class="input-area">
-        <label for="confirmeTermos">Aceita termos de uso</label>
+        <label for="confirmeTermos">Aceita termos de uso: {{ confirmeTermos ? 'Sim' : 'Não' }}</label>
         <input type="checkbox" id="confirmeTermos" v-model="confirmeTermos">
       </div>
+
+      <div class="input-area">
+        <input id="Bronze" type="radio" v-model="tipoPlano" value="1">  <label for="Bronze">Bronze </label>
+        <input id="Prata" type="radio" v-model="tipoPlano" value="2">  <label for="Prata">Prata </label>
+        <input id="Premium" type="radio" v-model="tipoPlano" value="3">  <label for="Premium">Premium </label>
+      </div>
+
+
  
       <button type="submit">Cadastre-se</button>
 
@@ -90,6 +98,7 @@
         patrocinador: '',
         biografia: '',
         confirmeTermos: true,
+        tipoPlano: 2,
       }
     },
     methods: {
