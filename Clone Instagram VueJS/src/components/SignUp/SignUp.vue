@@ -1,6 +1,6 @@
 <!-- HTML -->
 <template>
-    <form class="form-login">
+    <form @submit.prevent="handleCreateAccount" class="form-login">
         <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Instagram_logo.svg/840px-Instagram_logo.svg.png"
             alt="Logotipo do instagram">
 
@@ -68,15 +68,15 @@
         </div>
 
         <p class="form-element p-confirmeTermos">Ao se cadastrar, você concorda com nossos Termos, Política de Privacidade
-        e Política de Cookies</p>
-        
+            e Política de Cookies</p>
+
         <div class="form-confirmeTermos">
-        
+
             <label for="confirmeTermos">Aceita termos de uso: {{ confirmeTermos ? 'Sim' : 'Não' }}</label>
             <input type="checkbox" id="confirmeTermos" v-model="confirmeTermos">
         </div>
 
-        <button type="submit">Cadastre-se</button>
+        <button type="submit">Criar conta</button>
 
 
 
@@ -86,6 +86,11 @@
   <!-- Java Script -->
   
 <script>
+
+import * as yup from 'yup'
+
+
+
 export default {
     data() {
         return {
@@ -101,6 +106,36 @@ export default {
         }
     },
     methods: {
+        handleCreateAccount() {
+
+            try {
+
+                const schema = yup.object().shape({
+
+                    nomeCompleto: yup.string().required('O nome é obrigatório.'),
+                    email: yup.string().email('O e-mail não é válido.').required('O e-mail é obrigatório.'),
+                    telefone: yup.string().required('O telefone é obrigatório.')
+                })
+
+                schema.validateSync({
+                    nomeCompleto: this.nomeCompleto,
+                    email: this.email,
+                    telefone: this.telefone
+                })
+
+
+            } catch (error) {
+                alert('Erro no formulário')
+                
+
+            }
+
+
+
+
+
+
+        },
 
     },
 }
@@ -109,18 +144,16 @@ export default {
   <!-- Estilização -->
   
 <style scoped>
-
-
 .form-login {
-margin: 0 auto;
-width: 40%;
-border-radius: 4px;
-border: 2px solid #f2f2f2;
-display: flex;
-flex-direction: column;
-gap: 16px;
-align-items: center;
-padding: 12px;
+    margin: 0 auto;
+    width: 40%;
+    border-radius: 4px;
+    border: 2px solid #f2f2f2;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    align-items: center;
+    padding: 12px;
 }
 
 img {
@@ -128,31 +161,31 @@ img {
 }
 
 .form-input {
-background-color: #fafafa;
-height: 40px;
-width: 100%;
-border-radius: 8px;
-border: 1px solid #f2f2f2;
-outline: none;
+    background-color: #fafafa;
+    height: 40px;
+    width: 100%;
+    border-radius: 8px;
+    border: 1px solid #f2f2f2;
+    outline: none;
 }
 
 .form-element {
-display: flex;
-flex-direction: column;
-width: 80%;
+    display: flex;
+    flex-direction: column;
+    width: 80%;
 }
 
 
 .form-textarea,
 .form-select {
 
-background-color: #fafafa;
-width: 100%;
+    background-color: #fafafa;
+    width: 100%;
 
-border-radius: 8px;
-border: 1px solid #f2f2f2;
+    border-radius: 8px;
+    border: 1px solid #f2f2f2;
 
-outline: none;
+    outline: none;
 }
 
 .form-select {
@@ -161,48 +194,48 @@ outline: none;
 
 .form-confirmeTermos,
 .form-radio {
-display: flex;
-gap: 10px;
-align-items: center;
+    display: flex;
+    gap: 10px;
+    align-items: center;
 }
 
-.p-confirmeTermos{
-    width: 90%;   
+.p-confirmeTermos {
+    width: 90%;
 }
 
 .input-error {
-border-color: red;
+    border-color: red;
 }
 
 .error-box {
-background-color: tomato;
-width: 80%;
-color: #fff;
-margin: 4px;
+    background-color: tomato;
+    width: 80%;
+    color: #fff;
+    margin: 4px;
 }
 
-label, p {
-color: #707b88;
-font-size: 14px;
+label,
+p {
+    color: #707b88;
+    font-size: 14px;
 }
 
 button {
-background-color: #4bb4f8;
-color: white;
+    background-color: #4bb4f8;
+    color: white;
 
-font-size: 16px;
+    font-size: 16px;
 
-height: 40px;
-width: 80%;
+    height: 40px;
+    width: 80%;
 
-border-radius: 8px;
-border: none;
+    border-radius: 8px;
+    border: none;
 }
 
 button:hover {
-background-color: #2985c2;
+    background-color: #2985c2;
 }
-
 </style>
   
   
