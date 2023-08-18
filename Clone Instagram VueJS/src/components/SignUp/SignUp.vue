@@ -6,49 +6,54 @@
 
       <p>Cadastre-se para ver fotos e vídeos dos seus amigos</p>
 
-      <div class="input-area">
+      <div class="form-element">
         <label for="nomeCompleto">Nome Completo:</label>
         <input 
+        class="form-input"
         type="text" 
         id="nomeCompleto"
         v-model="nomeCompleto">
       </div>
   
-      <div class="input-area">
+      <div class="form-element">
         <label for="email">E-mail:</label>
         <input 
+        class="form-input"
         type="text"
         id="email" 
         v-model="email" >
       </div>
 
-      <div class="input-area">
+      <div class="form-element">
         <label for="telefone">Telefone:</label>
         <input 
+        class="form-input"
         type="text"
         id="telefone" 
         v-model="telefone" >
       </div>
 
-      <div class="input-area">
+      <div class="form-element">
         <label for="password">Senha:</label>
         <input 
+        class="form-input"
         type="password" 
         id="password"
         v-model="password" >
       </div>
 
-      <div class="input-area">
+      <div class="form-element">
         <label for="confirmarPassword">Confirme a senha:</label>
         <input 
+        class="form-input"
         type="password" 
         id="confirmarPassword"
         v-model="confirmarPassword" >
       </div>
 
-      <div class="input-area">
+      <div class="form-element">
         <label for="patrocinador">Patrocinador:</label>
-        <select id="patrocinador" v-model="patrocinador">
+        <select class="form-select" id="patrocinador" v-model="patrocinador">
             <option value="">Sem patrocinador</option>
             <option value="Coca Cola">Coca Cola</option>
             <option value="Nike">Nike</option>
@@ -57,27 +62,28 @@
         </select>   
       </div>
 
-      <div class="input-area">
+      <div class="form-element">
         <label for="biografia">Digite sua biografia:</label>
-        <textarea id="biografia" cols="30" rows="10" v-model="biografia" ></textarea>
+        <textarea class="form-textarea" id="biografia" cols="30" rows="10" v-model="biografia" ></textarea>
       </div>
 
-      <div class="input-area">
-        <label for="confirmeTermos">Aceita termos de uso: {{ confirmeTermos ? 'Sim' : 'Não' }}</label>
-        <input type="checkbox" id="confirmeTermos" v-model="confirmeTermos">
-      </div>
 
-      <div class="input-area">
+
+      <div class="form-radio">
         <input id="Bronze" type="radio" v-model="tipoPlano" value="1">  <label for="Bronze">Bronze </label>
         <input id="Prata" type="radio" v-model="tipoPlano" value="2">  <label for="Prata">Prata </label>
         <input id="Premium" type="radio" v-model="tipoPlano" value="3">  <label for="Premium">Premium </label>
       </div>
 
 
- 
+      <div class="form-confirmeTermos">
+        <label for="confirmeTermos">Aceita termos de uso: {{ confirmeTermos ? 'Sim' : 'Não' }}</label>
+        <input type="checkbox" id="confirmeTermos" v-model="confirmeTermos">
+      </div>
+      
       <button type="submit">Cadastre-se</button>
 
-      <p class="input-area">Ao se cadastrar, você concorda com nossos Termos, Política de Privacidade
+      <p class="form-element">Ao se cadastrar, você concorda com nossos Termos, Política de Privacidade
          e Política de Cookies</p>
         
     </form>
@@ -136,7 +142,7 @@
     width: 250px;
   }
   
-  input {
+.form-input {
     background-color: #fafafa;
     height: 40px;
     width: 80%;
@@ -146,16 +152,37 @@
   
     outline: none;
   }
-  
-  .input-area {
+
+  .form-element {
     display: flex;
     flex-direction: column;
   
     width: 80%;
   }
-  
-  .input-area input {
+
+
+.form-textarea, .form-select {
+
+background-color: #fafafa;
+width: 100%;
+
+border-radius: 8px;
+border: 1px solid #f2f2f2;
+
+outline: none;
+}
+
+.form-select {
+    height: 40px;
+  }
+
+  .form-element input {
     width: 100%;
+  }
+
+  label {
+    color: #707b88;
+    font-size: 14px;
   }
   
   button {
@@ -175,14 +202,18 @@
     background-color: #2985c2;
   }
   
-  label {
-    color: #707b88;
-    font-size: 14px;
-  }
+
   
   .input-error {
     border-color: red;
   }
+
+  .form-confirmeTermos, .form-radio{
+display: flex;
+gap: 10px;
+justify-items: left;
+justify-content: left;
+}
   </style>
   
   
