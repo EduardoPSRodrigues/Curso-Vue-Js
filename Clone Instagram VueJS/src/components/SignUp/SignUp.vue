@@ -9,21 +9,26 @@
         <div class="form-element">
             <label for="nomeCompleto">Nome Completo:</label>
             <input class="form-input" type="text" id="nomeCompleto" v-model="nomeCompleto">
+            <span class="mensagem-erro">{{ this.errors.nomeCompleto }}</span>
         </div>
 
         <div class="form-element">
             <label for="email">E-mail:</label>
             <input class="form-input" type="text" id="email" v-model="email">
+            <span class="mensagem-erro">{{ this.errors.email }}</span>
         </div>
 
         <div class="form-element">
             <label for="telefone">Telefone:</label>
             <input class="form-input" type="text" id="telefone" v-model="telefone">
+            <span class="mensagem-erro">{{ this.errors.telefone }}</span>
         </div>
 
         <div class="form-element">
             <label for="password">Senha:</label>
             <input class="form-input" type="password" id="password" v-model="password">
+            <span class="mensagem-erro">{{ this.errors.password }}</span>
+
         </div>
 
         <div class="form-element">
@@ -88,8 +93,7 @@
 <script>
 
 import * as yup from 'yup'
-
-
+import { captureErrorYup } from "../../utils/captureErrorYup";
 
 export default {
     data() {
@@ -103,6 +107,8 @@ export default {
             biografia: '',
             confirmeTermos: true,
             tipoPlano: 2,
+
+            errors: {},
         }
     },
     methods: {
@@ -114,18 +120,33 @@ export default {
 
                     nomeCompleto: yup.string().required('O nome é obrigatório.'),
                     email: yup.string().email('O e-mail não é válido.').required('O e-mail é obrigatório.'),
-                    telefone: yup.string().required('O telefone é obrigatório.')
+                    telefone: yup.string().required('O telefone é obrigatório.'),
+                    password: yup.string().min(5,"A senha deve ter no mínimo 5 caracteres.").max(20, "A senha deve ter entre 8-20 caracteres.").required('A senha é obrigatório.'),
+            // confirmarPassword: '',
+            // patrocinador: '',
+            // biografia: '',
+            // confirmeTermos: true,
+            // tipoPlano: 2,
                 })
 
                 schema.validateSync({
                     nomeCompleto: this.nomeCompleto,
                     email: this.email,
-                    telefone: this.telefone
-                })
+                    telefone: this.telefone,
+                    password: this.password,
+
+                }, {abortEarly: false})
 
 
             } catch (error) {
-                alert('Erro no formulário')
+                if (error instanceof yup.ValidationError) {
+                    this.errors = captureErrorYup(error)
+
+
+
+
+
+                }
                 
 
             }
@@ -207,11 +228,10 @@ img {
     border-color: red;
 }
 
-.error-box {
-    background-color: tomato;
-    width: 80%;
-    color: #fff;
+.mensagem-erro{
+    color: red;
     margin: 4px;
+    font-size: small;
 }
 
 label,
