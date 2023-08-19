@@ -34,6 +34,7 @@
         <div class="form-element">
             <label for="confirmarPassword">Confirme a senha:</label>
             <input class="form-input" type="password" id="confirmarPassword" v-model="confirmarPassword">
+            <span class="mensagem-erro">{{ this.errors.confirmarPassword }}</span>
         </div>
 
         <div class="form-element">
@@ -76,14 +77,12 @@
             e Política de Cookies</p>
 
         <div class="form-confirmeTermos">
-
             <label for="confirmeTermos">Aceita termos de uso: {{ confirmeTermos ? 'Sim' : 'Não' }}</label>
             <input type="checkbox" id="confirmeTermos" v-model="confirmeTermos">
+            <span class="mensagem-erro">{{ this.errors.confirmeTermos }}</span>
         </div>
 
         <button type="submit">Criar conta</button>
-
-
 
     </form>
 </template>
@@ -121,12 +120,10 @@ export default {
                     nomeCompleto: yup.string().required('O nome é obrigatório.'),
                     email: yup.string().email('O e-mail não é válido.').required('O e-mail é obrigatório.'),
                     telefone: yup.string().required('O telefone é obrigatório.'),
-                    password: yup.string().min(5,"A senha deve ter no mínimo 5 caracteres.").max(20, "A senha deve ter entre 8-20 caracteres.").required('A senha é obrigatório.'),
-            // confirmarPassword: '',
-            // patrocinador: '',
-            // biografia: '',
-            // confirmeTermos: true,
-            // tipoPlano: 2,
+                    password: yup.string().min(5, "A senha deve ter no mínimo 5 caracteres.").max(20, "A senha deve ter entre 8-20 caracteres.").required('A senha é obrigatória.'),
+                    confirmarPassword: yup.string().required('A confirmação da senha é necessária.').oneOf([yup.ref('password')], 'As senhas devem coincidir.'),
+                    confirmeTermos: yup.boolean().isTrue('Os termos de uso devem ser aceitos.'),
+
                 })
 
                 schema.validateSync({
@@ -134,30 +131,50 @@ export default {
                     email: this.email,
                     telefone: this.telefone,
                     password: this.password,
+                    confirmarPassword: this.confirmarPassword,
+                    confirmeTermos: this.confirmeTermos,
 
-                }, {abortEarly: false})
+                }, { abortEarly: false })
+
+                fetch('http://localhost:3000/api/register', {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        nomeCompleto: this.nomeCompleto,
+                        email: this.email,
+                        telefone: this.telefone,
+                        password: this.password,
+                        confirmarPassword: this.confirmarPassword,
+                        patrocinador: this.patrocinador,
+                        biografia: this.biografia,
+                        confirmeTermos: this.confirmeTermos,
+                        tipoPlano: this.tipoPlano,
+                    }),
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                })
+                    .then((response) => {
+                        console.log('entrei aqui no then')
+                        if (response.ok === false) {
+                            throw new Error()
+                        }
+                        return response.json()
+                    })
+                    .then(() => {
+                        alert('Cadastrado com sucesso')
+                        this.$router.push('/')
+                    })
+                    .catch(() => {
+                        alert('Houve uma falha ao tentar cadastrar')
+                    })
 
 
             } catch (error) {
                 if (error instanceof yup.ValidationError) {
                     this.errors = captureErrorYup(error)
-
-
-
-
-
                 }
-                
-
             }
-
-
-
-
-
-
         },
-
     },
 }
 </script>
@@ -228,7 +245,7 @@ img {
     border-color: red;
 }
 
-.mensagem-erro{
+.mensagem-erro {
     color: red;
     margin: 4px;
     font-size: small;
