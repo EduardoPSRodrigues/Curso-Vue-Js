@@ -8,32 +8,32 @@
 
         <div class="form-element">
             <label for="nomeCompleto">Nome Completo:</label>
-            <input class="form-input" type="text" id="nomeCompleto" v-model="nomeCompleto">
+            <input class="form-input" type="text" id="nomeCompleto" v-model="nomeCompleto" :class="{'input-error': this.errors.nomeCompleto}">
             <span class="mensagem-erro">{{ this.errors.nomeCompleto }}</span>
         </div>
 
         <div class="form-element">
             <label for="email">E-mail:</label>
-            <input class="form-input" type="text" id="email" v-model="email">
+            <input class="form-input" type="text" id="email" v-model="email" :class="{'input-error': this.errors.email}">
             <span class="mensagem-erro">{{ this.errors.email }}</span>
         </div>
 
         <div class="form-element">
             <label for="telefone">Telefone:</label>
-            <input class="form-input" type="text" id="telefone" v-model="telefone">
+            <input class="form-input" type="text" id="telefone" v-model="telefone" :class="{'input-error': this.errors.telefone}">
             <span class="mensagem-erro">{{ this.errors.telefone }}</span>
         </div>
 
         <div class="form-element">
             <label for="password">Senha:</label>
-            <input class="form-input" type="password" id="password" v-model="password">
+            <input class="form-input" type="password" id="password" v-model="password" :class="{'input-error': this.errors.password}">
             <span class="mensagem-erro">{{ this.errors.password }}</span>
 
         </div>
 
         <div class="form-element">
             <label for="confirmarPassword">Confirme a senha:</label>
-            <input class="form-input" type="password" id="confirmarPassword" v-model="confirmarPassword">
+            <input class="form-input" type="password" id="confirmarPassword" v-model="confirmarPassword" :class="{'input-error': this.errors.confirmarPassword}">
             <span class="mensagem-erro">{{ this.errors.confirmarPassword }}</span>
         </div>
 
