@@ -1,47 +1,67 @@
-<script setup>
-import HelloWorld from './components/HelloWorld.vue'
-import TheWelcome from './components/TheWelcome.vue'
-</script>
-
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-    </div>
-  </header>
-
-  <main>
-    <TheWelcome />
-  </main>
+  <form @submit.prevent="handleSubmit">
+    <h1>Formulário de cadastro de um novo usuário</h1>
+    <input type="text" placeholder="Digite o nome" v-model="cliente.nome" />
+    <input type="email" placeholder="Digite o email" v-model="cliente.email" />
+    <button type="submit">Cadastrar usuário</button>
+    <hr><br>
+    <h2>Lista de usuários</h2>
+    {{ listaUsuarios }}
+  </form>
 </template>
 
+<script>
+/**
+ * PASSOS PARA UTILIZAR O AXIOS
+ * 
+ * Não precisa fazer a validação e a conversão para json, sendo que no fetch tem que fazer na mão
+ * Não precisa fazer a configuração do tipo de conteúdo que esta passando
+ * 
+ * 
+ * 1 - [x] instalar o axios - npm install axios
+ * 2 - [x] importar o axios no local que será utilizado - import axios from "axios"
+ * 3 - [x] utilizar o axios usando o método (GET, POST, PUT...) desejado
+ */
+
+import axios from "axios"
+
+export default {
+  data(){
+    return {
+      cliente: {
+        nome: "",
+        email: "",
+      },
+      listaUsuarios: []
+    }
+  },
+  methods: {
+    handleSubmit(){
+      // URL , DADOS
+      axios.post("http://localhost:50001/clientes", this.cliente)
+      .then(res => { 
+        alert("Cliente cadastrado com sucesso!")
+      })
+      .catch(erro => console.log(erro))
+
+      this.getDados()
+    },
+    getDados(){
+      axios.get("http://localhost:50001/clientes")
+      .then(res => this.listaUsuarios = res.data)
+      .catch(erro => console.log(erro))
+    }
+  },
+  mounted(){
+    this.getDados()
+  }
+}
+</script>
+
 <style scoped>
-header {
-  line-height: 1.5;
-}
-
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
+form{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 </style>
