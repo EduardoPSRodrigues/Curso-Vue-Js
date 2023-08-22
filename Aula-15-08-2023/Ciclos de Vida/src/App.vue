@@ -20,7 +20,7 @@
  * 
  * 1 - [x] instalar o axios - npm install axios
  * 2 - [x] importar o axios no local que será utilizado - import axios from "axios"
- * 3 - [x] utilizar o axios usando o método (GET, POST, PUT...) desejado
+ * 3 - [] utilizar o axios usando o método (GET, POST, PUT...) desejado
  */
 
 import axios from "axios"
