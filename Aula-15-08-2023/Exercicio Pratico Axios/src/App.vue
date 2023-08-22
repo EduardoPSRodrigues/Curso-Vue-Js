@@ -1,19 +1,16 @@
 <template>
- <!-- <form>
-    <h1>Axios via GitHub</h1>
-    <h2>Nome: {{ usuario.name }}</h2>
-     <img :src="usuario.avatar_url" :width="200" alt="imagem"> 
-  </form>-->
 
-  <form>
-    <h1>Axios via Via Cep</h1>
-    <h2>Endereço: {{ endereco.logradouro }}</h2>
-    <h2>CEP: {{ endereco.cep }}</h2>
-    <h2>complemento: {{ endereco.complemento }}</h2>
-    <h2>bairro: {{ endereco.bairro }}</h2>
-    <h2>localidade: {{ endereco.localidade }}</h2>
-    
+    <form @submit.prevent="handleSubmit">
+    <h1>Formulário de cadastro de um novo usuário</h1>
+    <input type="text" placeholder="Digite o nome" v-model="cliente.nome" />
+    <input type="email" placeholder="Digite o email" v-model="cliente.email" />
+    <button type="submit">Cadastrar usuário</button>
+    <hr><br>
+    <h2>Lista de usuários</h2>
+    {{ listaUsuarios }}
   </form>
+
+    
 </template>
 
 <script>
@@ -29,7 +26,8 @@
  * 3 - [x] utilizar o axios usando o método (GET, POST, PUT...) desejado
  * 
  * mounted(){ } é responsável por montar o site, entao se estou pegando valores de outros lugares para depois montar o meu site
- * o site sempre ficará atualizado, 
+ * o site sempre ficará atualizado, sendo que o resultado da requisição do axios fica na variavel resultado.data que armazena na 
+ * variavel endereço no data 
  */
 
 import axios from "axios"
@@ -37,20 +35,33 @@ import axios from "axios"
 export default {
   data(){
     return {
-     usuario: {},
-     endereco: {},
+      cliente: {
+        nome: "",
+        email: "",
+      },
+      listaUsuarios: []
     }
   },
-  // mounted(){
-  //   axios.get('https://api.github.com/users/Bruno-Costa-fig')
-  //   .then(resultado => this.usuario = resultado.data)
-  //   .catch(erro => console.log('erro'))
-  // }, 
-  mounted() {
-    axios.get('https://viacep.com.br/ws/01001000/json/')
-    .then(resultado => this.endereco = resultado.data)
-    .catch(erro => console.log('erro'))
+  methods: {
+    handleSubmit(){
+      // URL , DADOS
+      axios.post("http://localhost:50001/clientes", this.cliente)
+      .then(res => { 
+        alert("Cliente cadastrado com sucesso!")
+      })
+      .catch(erro => console.log(erro))
+
+      this.getDados()
+    },
+    getDados(){
+      axios.get("http://localhost:50001/clientes")
+      .then(res => this.listaUsuarios = res.data)
+      .catch(erro => console.log(erro))
+    }
   },
+  mounted(){
+    this.getDados()
+  }
 }
 </script>
 
