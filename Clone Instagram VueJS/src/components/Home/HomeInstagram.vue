@@ -1,41 +1,111 @@
 <template>
+    <h1>Conteúdo principal</h1>
+    <p>Este é o conteúdo principal da página.</p>
+    <p id="bem_vindo_usuario"></p>
+    <p>Nome: <span id="nome"></span> </p>
+    <p>Username: <span id="username"></span> </p>
+    <p>Qtd de seguidores: <span id="qtd_seguidores"></span> </p>
+    <p>Qtd de publicações: <span id="qtd_publicacoes"></span> </p>
 
- <div class="content" id="conteudo">
-            <h1>Conteúdo principal</h1>
-            <p>Este é o conteúdo principal da página</p>
+    <v-form class="d-flex" ref="form" @submit.prevent="handleSubmit">
+        <v-text-field 
+            class="w-25 me-5"
+            label="Nome" 
+            variant="outlined" 
+            :rules="[v => !!v || 'Nome é obrigatório!']"
+            v-model="post.usuario"
+            required
+        ></v-text-field>
 
-            <p id="bem-vindo-usuario"></p>
+        <v-text-field 
+            class="w-50"
+            label="Imagem" 
+            variant="outlined" 
+            :rules="[v => !!v || 'Imagem é obrigatória!']"
+            v-model="post.imagem"
+            required
+        ></v-text-field>
 
-            <p>Hora Atual: <span id="hora-Atual"> </span></p>
-            <p>Nome: <span id="nome-Usuario"> </span></p>
-            <p>Username: <span id="User-Name"> </span></p>
-            <p>Quantidade de Seguidores: <span id="qtd-de-seguidores"> </span></p>
-            <p>Quantidade de Publicações: <span id="qtd-de-publicacoes"> </span></p>
-            <p>Quantidade de Pessoas Seguindo: <span id="qtd-de-pessoas-seguindo"> </span></p>
+        <v-btn variant="tonal" class="mx-5" color="green" type="submit">Cadastrar</v-btn>
+        <v-btn variant="tonal" color="orange" type="reset">Limpar</v-btn>
+    </v-form>
 
-            <div id="galeria" class="galeria-fotos">
-            </div>
+    <v-snackbar
+        v-model="snackbar"
+        :timeout="timeout"
+    >
+        {{ text }}
 
+        <template v-slot:actions>
+        <v-btn
+            color="red"
+            variant="text"
+            @click="snackbar = false"
+        >
+            Fechar
+        </v-btn>
+        </template>
+    </v-snackbar>
 
-        </div>
+    <div class="d-flex flex-wrap w-100">
+        <v-card 
+            v-for="(item, index) in postsList" :key="index"
+            variant="tonal" 
+            class="w-25 ma-2" 
+            :title="item.usuario"
+        >
+        
+            <v-card-text>
+                <img :width="200" :src="item.imagem" alt="usuario">
+            </v-card-text>
+        </v-card>
+    </div>
 </template>
-
 
 <script>
 export default {
-    
+    data() {
+        return {
+            // nomes: [
+            //     'https://http.cat/images/202.jpg',
+            //     'https://http.cat/images/301.jpg',
+            //     'https://http.cat/images/404.jpg',
+            //     'https://http.cat/images/408.jpg',
+            //     'https://http.cat/images/417.jpg',
+            //     'https://http.cat/images/498.jpg',
+            //     'https://http.cat/images/500.jpg'
+            // ]
+            snackbar: false,
+            timeout: 2000,
+            text: "",
+            postsList: [],
+            post: {
+                usuario: '',
+                imagem: ''
+            }
+        }
+    },
+    methods: {
+    async handleSubmit(){
+      const {valid} = await this.$refs.form.validate()
+
+      if(valid){ 
+        this.postsList.push({...this.post})
+        this.text = 'Título e imagem cadastrados com sucesso!'
+        this.snackbar = true
+        this.$refs.form.reset()
+      }
+    }
+  }
 }
 </script>
 
+<!-- Informações do projeto
 
-<style scoped>
+1 - O código <v-card-text> </v-card-text> permite que dentro dele eu coloque qualquer tag de HTML
+2 - <v-card v-for="(nome, index) in nomes" :key="index"> uando usar o v-for, o código fica reclamando de uma chave key, 
+    para sanar o erro, basta colocar nessa estrutura
+3 - Sendo que o :src="nome" esta pegando o array de dados que esta no data()
+4 - class="mx-5" adiciona margem com a configuração 5 no eixo 5 (direita e esquerda)
 
-.content{
-    flex: 1;
-    padding: 20px;
-    background-color: #fafafa;
-    margin-left: 200px;
-}
-    
-</style>
-
+ -->
