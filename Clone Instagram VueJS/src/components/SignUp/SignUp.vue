@@ -8,32 +8,36 @@
 
         <div class="form-element">
             <label for="nomeCompleto">Nome Completo:</label>
-            <input class="form-input" type="text" id="nomeCompleto" v-model="nomeCompleto" :class="{'input-error': this.errors.nomeCompleto}">
+            <input class="form-input" type="text" id="nomeCompleto" v-model="nomeCompleto"
+                :class="{ 'input-error': this.errors.nomeCompleto }">
             <span class="mensagem-erro">{{ this.errors.nomeCompleto }}</span>
         </div>
 
         <div class="form-element">
             <label for="email">E-mail:</label>
-            <input class="form-input" type="text" id="email" v-model="email" :class="{'input-error': this.errors.email}">
+            <input class="form-input" type="text" id="email" v-model="email" :class="{ 'input-error': this.errors.email }">
             <span class="mensagem-erro">{{ this.errors.email }}</span>
         </div>
 
         <div class="form-element">
             <label for="telefone">Telefone:</label>
-            <input class="form-input" type="text" id="telefone" v-model="telefone" :class="{'input-error': this.errors.telefone}">
+            <input class="form-input" type="text" id="telefone" v-model="telefone"
+                :class="{ 'input-error': this.errors.telefone }">
             <span class="mensagem-erro">{{ this.errors.telefone }}</span>
         </div>
 
         <div class="form-element">
             <label for="password">Senha:</label>
-            <input class="form-input" type="password" id="password" v-model="password" :class="{'input-error': this.errors.password}">
+            <input class="form-input" type="password" id="password" v-model="password"
+                :class="{ 'input-error': this.errors.password }">
             <span class="mensagem-erro">{{ this.errors.password }}</span>
 
         </div>
 
         <div class="form-element">
             <label for="confirmarPassword">Confirme a senha:</label>
-            <input class="form-input" type="password" id="confirmarPassword" v-model="confirmarPassword" :class="{'input-error': this.errors.confirmarPassword}">
+            <input class="form-input" type="password" id="confirmarPassword" v-model="confirmarPassword"
+                :class="{ 'input-error': this.errors.confirmarPassword }">
             <span class="mensagem-erro">{{ this.errors.confirmarPassword }}</span>
         </div>
 
@@ -93,6 +97,7 @@
 
 import * as yup from 'yup'
 import { captureErrorYup } from "../../utils/captureErrorYup";
+import axios from "axios"
 
 export default {
     data() {
@@ -136,9 +141,10 @@ export default {
 
                 }, { abortEarly: false })
 
-                fetch('http://localhost:3000/api/register', {
+                axios({
+                    url: 'http://localhost:3000/api/register',
                     method: 'POST',
-                    body: JSON.stringify({
+                    data: {
                         nomeCompleto: this.nomeCompleto,
                         email: this.email,
                         telefone: this.telefone,
@@ -148,26 +154,53 @@ export default {
                         biografia: this.biografia,
                         confirmeTermos: this.confirmeTermos,
                         tipoPlano: this.tipoPlano,
-                    }),
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
+                    }
                 })
+                    .then(() => {
+                        alert('Cadastrado com sucesso')
+                        this.$router.push('/')
+                    })
+                    .catch((error) => {
+                        console.log(error)
+                        if (error.response?.data?.message) {
+                            alert(error.response.data.message)
+                        } else {
+                            alert('Houve uma falha ao tentar cadastrar')
+                        }
+                    })
+
+                    /*Configurando com o fetch
+                    fetch('http://localhost:3000/api/register', {
+                        method: 'POST',
+                        body: JSON.stringify({
+                            nomeCompleto: this.nomeCompleto,
+                            email: this.email,
+                            telefone: this.telefone,
+                            password: this.password,
+                            confirmarPassword: this.confirmarPassword,
+                            patrocinador: this.patrocinador,
+                            biografia: this.biografia,
+                            confirmeTermos: this.confirmeTermos,
+                            tipoPlano: this.tipoPlano,
+                        }),
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                    }) 
                     .then((response) => {
                         console.log('entrei aqui no then')
                         if (response.ok === false) {
                             throw new Error()
                         }
                         return response.json()
-                    })
+                    }) 
                     .then(() => {
                         alert('Cadastrado com sucesso')
                         this.$router.push('/')
                     })
                     .catch(() => {
                         alert('Houve uma falha ao tentar cadastrar')
-                    })
-
+                    })*/
 
             } catch (error) {
                 if (error instanceof yup.ValidationError) {
