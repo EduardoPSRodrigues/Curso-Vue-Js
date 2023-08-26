@@ -145,15 +145,15 @@ export default {
                     url: 'http://localhost:3000/api/register',
                     method: 'POST',
                     data: {
-                        nomeCompleto: this.nomeCompleto,
+                        name: this.nomeCompleto,
                         email: this.email,
-                        telefone: this.telefone,
+                        contact: this.telefone,
                         password: this.password,
                         confirmarPassword: this.confirmarPassword,
-                        patrocinador: this.patrocinador,
-                        biografia: this.biografia,
-                        confirmeTermos: this.confirmeTermos,
-                        tipoPlano: this.tipoPlano,
+                        sponsor: this.patrocinador,
+                        bio: this.biografia,
+                        confirmTerms: this.confirmeTermos,
+                        planType: this.tipoPlano,
                     }
                 })
                     .then(() => {
