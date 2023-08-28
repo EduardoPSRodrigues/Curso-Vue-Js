@@ -149,7 +149,6 @@ export default {
                         email: this.email,
                         contact: this.telefone,
                         password: this.password,
-                        confirmarPassword: this.confirmarPassword,
                         sponsor: this.patrocinador,
                         bio: this.biografia,
                         confirmTerms: this.confirmeTermos,
@@ -160,6 +159,9 @@ export default {
                         alert('Cadastrado com sucesso')
                         this.$router.push('/')
                     })
+                    // Estou pegando os dados da resposta do erro
+                    // error.response?.data? é a forma como o axios trata os erros e o .message é a variável que o backend usou
+                    // no código da API
                     .catch((error) => {
                         console.log(error)
                         if (error.response?.data?.message) {
@@ -168,40 +170,7 @@ export default {
                             alert('Houve uma falha ao tentar cadastrar')
                         }
                     })
-
-                    /*Configurando com o fetch
-                    fetch('http://localhost:3000/api/register', {
-                        method: 'POST',
-                        body: JSON.stringify({
-                            nomeCompleto: this.nomeCompleto,
-                            email: this.email,
-                            telefone: this.telefone,
-                            password: this.password,
-                            confirmarPassword: this.confirmarPassword,
-                            patrocinador: this.patrocinador,
-                            biografia: this.biografia,
-                            confirmeTermos: this.confirmeTermos,
-                            tipoPlano: this.tipoPlano,
-                        }),
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                    }) 
-                    .then((response) => {
-                        console.log('entrei aqui no then')
-                        if (response.ok === false) {
-                            throw new Error()
-                        }
-                        return response.json()
-                    }) 
-                    .then(() => {
-                        alert('Cadastrado com sucesso')
-                        this.$router.push('/')
-                    })
-                    .catch(() => {
-                        alert('Houve uma falha ao tentar cadastrar')
-                    })*/
-
+ 
             } catch (error) {
                 if (error instanceof yup.ValidationError) {
                     this.errors = captureErrorYup(error)
@@ -328,4 +297,38 @@ button:hover {
     configurado no router
   * Dentro de uma função no methods, para ser direcionado a outra tela usa-se this.$router.push('/home'), dentro das aspas 
     coloca o path para ser direcionado
+  * Código com fecth
+    /*Configurando com o fetch
+                    fetch('http://localhost:3000/api/register', {
+                        method: 'POST',
+                        body: JSON.stringify({
+                            nomeCompleto: this.nomeCompleto,
+                            email: this.email,
+                            telefone: this.telefone,
+                            password: this.password,
+                            confirmarPassword: this.confirmarPassword,
+                            patrocinador: this.patrocinador,
+                            biografia: this.biografia,
+                            confirmeTermos: this.confirmeTermos,
+                            tipoPlano: this.tipoPlano,
+                        }),
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                    }) 
+                    .then((response) => {
+                        console.log('entrei aqui no then')
+                        if (response.ok === false) {
+                            throw new Error()
+                        }
+                        return response.json()
+                    }) 
+                    .then(() => {
+                        alert('Cadastrado com sucesso')
+                        this.$router.push('/')
+                    })
+                    .catch(() => {
+                        alert('Houve uma falha ao tentar cadastrar')
+                    })*/
+
   -->
