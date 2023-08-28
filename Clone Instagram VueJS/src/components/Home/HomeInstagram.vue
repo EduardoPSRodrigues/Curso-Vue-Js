@@ -1,17 +1,4 @@
 <template>
-
-    <v-layout>
-        <v-app-bar color="blue" >
-            <v-app-bar-title> Instagram</v-app-bar-title>
-
-            <v-btn icon>
-                <router-link to="/posts/novo" >
-            <v-icon>mdi-magnify</v-icon>
-                </router-link>
-            </v-btn>
-        </v-app-bar>
-
-    <v-main>
         <h1>Conteúdo principal</h1>
         <p>Este é o conteúdo principal da página.</p>
         <p id="bem_vindo_usuario"></p>
@@ -73,8 +60,6 @@
                 </v-card-text>
             </v-card>
         </div>
-    </v-main>
-    </v-layout>
 </template>
 
 <script>
