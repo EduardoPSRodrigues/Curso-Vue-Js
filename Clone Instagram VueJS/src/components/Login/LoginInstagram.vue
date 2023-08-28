@@ -5,17 +5,11 @@
       alt="Logotipo do instagram">
 
     <div class="input-area">
-      <input 
-      type="text" 
-      placeholder="Telefone, nome do usuário ou e-mail" 
-      v-model="email">
+      <input type="text" placeholder="Telefone, nome do usuário ou e-mail" v-model="email">
     </div>
 
     <div class="input-area">
-      <input 
-      type="password" 
-      placeholder="Senha" 
-      v-model="password" >
+      <input type="password" placeholder="Senha" v-model="password">
     </div>
 
     <button type="submit">Entrar</button>
@@ -31,13 +25,15 @@
 
     <a id="esqueceu-senha">Esqueceu a senha?</a>
     <span id="imagem-carregando" hidden></span>
-    
+
   </form>
 </template>
 
 <!-- Java Script -->
 
 <script>
+import axios from 'axios'
+
 export default {
   data() {
     return {
@@ -58,7 +54,28 @@ export default {
       if (!this.password) this.errorInputPassword = 'Senha incorreta.'
 
       if (!this.errorInputEmail && !this.errorInputPassword) {
-        this.$router.push('/home')
+        //Fazendo uma requisição para verificar a informação no banco de dados
+        axios({
+          url: 'http://localhost:3000/api/login',
+          method: 'POST',
+          data: {
+            email: this.email,
+            password: this.password,
+          }
+        })
+        .then((response) => {
+          
+          // Usei o localStorage para salvar informações do usuário, sendo que o token pode ser armazenado, pois o 
+          // usuário não sabe decodificar o código
+          localStorage.setItem("instagram_token", response.data.token)
+          localStorage.setItem("instagram_name", response.data.name)
+
+          this.$router.push('/home')
+          console.log("Logado com sucesso")
+        })
+          .catch(() => {
+              alert("Falha ao realizar login")
+          })
       }
     }
   },
@@ -75,6 +92,7 @@ export default {
   margin: 4px;
 
 }
+
 .form-login {
   margin: 0 auto;
   width: 40%;
