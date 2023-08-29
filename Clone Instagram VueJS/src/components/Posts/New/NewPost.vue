@@ -2,10 +2,13 @@
     <v-form @submit.prevent="handleSubmit">
       <v-text-field label="Título" variant="outlined" v-model="title" />
       <span>{{ this.errors.title }} </span>
+
       <v-textarea label="Descrição" v-model="description" />
       <span>{{ this.errors.description }} </span>
+
       <v-text-field label="URL" variant="outlined" v-model="url" />
       <span>{{ this.errors.url }} </span>
+
       <v-btn type="submit">Cadastrar</v-btn>
     </v-form>
   </template>
@@ -45,7 +48,9 @@
               url: this.url
             },
             { abortEarly: false }
-          ) // importante
+          )
+
+          //Pegando uma informação no local storage
   
           const token = localStorage.getItem('instagram_token')
   
@@ -57,6 +62,9 @@
               description: this.description,
               url: this.url
             },
+            // O Token tem que ir no cabeçalho da requisição e estamos usando a palavra Bearen por causa do tipo do token
+            // que estamos usando que é o JWT. Todos os tokens tem um prefixo
+            // O objetivo é como que faz uma requisição privado por causa do token
             headers: {
               Authorization: `Bearen ${token}`
             }
