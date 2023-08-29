@@ -6,7 +6,13 @@
 
             <v-btn icon>
                 <router-link to="/posts/novo">
-                    <v-icon color="#FFF">mdi-post</v-icon>
+                    <v-icon color="#FFF">mdi-email</v-icon>
+                </router-link>
+            </v-btn>
+
+            <v-btn>
+                <router-link to="/posts">
+                <v-icon color="#FFF">mdi-list-box</v-icon>
                 </router-link>
             </v-btn>
         </v-app-bar>
