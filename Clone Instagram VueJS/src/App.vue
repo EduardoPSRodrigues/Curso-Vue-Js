@@ -1,7 +1,7 @@
 <!-- HTML -->
 <template>
     <v-layout>
-        <v-app-bar color="blue">
+        <v-app-bar color="blue" v-if="renderizarMenu">
             <v-app-bar-title> Instagram</v-app-bar-title>
 
             <v-btn icon>
@@ -17,7 +17,18 @@
     </v-layout>
 </template>
 
+<script>
+export default {
+  computed: {
+    renderizarMenu() {
+      return this.$route.path !== '/' && this.$route.path !== '/cadastro'
+    }
+  }
+}
+</script>
+
 <!-- Informações do projeto
 * Primeiro passo criar todas as telas da aplicação.
-
+* Recomenda criar um componente do Menu e importar apenas
+  no app.vue
 -->
