@@ -4,6 +4,8 @@ import HomeInstagram from '../components/Home/HomeInstagram.vue'
 import LoginInstagram from '../components/Login/LoginInstagram.vue'
 import SignUp from '../components/SignUp/SignUp.vue'
 import NewPost from '../components/Posts/New/NewPost.vue'
+import ListPost from '../components/Posts/List/ListPost.vue'
+
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -27,6 +29,11 @@ const router = createRouter({
             path: '/posts/novo', 
             name: 'NewPost',
             component: NewPost,
+        },
+        {
+            path: '/posts', 
+            name: 'ListPost',
+            component: ListPost,
         },
     ]
 })
