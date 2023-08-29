@@ -4,13 +4,14 @@
     <ul style="display: none">
         <!-- posts é a variavel do data -->
       <li v-for="post in posts" :key="post.id">
-        <img :src="post.url" width="100" />
+        <img :src="post.url" width="100" alt="imagem do post" />
   
         <p>{{ post.title }}</p>
         <p>{{ post.description }}</p>
       </li>
     </ul>
     -----------------------------------------
+    
     <v-card
       v-for="post in posts"
       :key="post.id"
@@ -35,7 +36,7 @@
       <tbody>
         <tr v-for="post in posts" :key="post.id">
           <td>{{ post.id }}</td>
-          <td><img :src="post.url" width="30" /></td>
+          <td><img :src="post.url" width="30" alt="imagem do post" /></td>
           <td>{{ post.title }}</td>
           <td>{{ post.description }}</td>
           <td>
